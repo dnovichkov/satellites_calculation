@@ -1,5 +1,5 @@
 from dataclasses import dataclass
-from typing import List
+from typing import List, Optional
 
 
 @dataclass
@@ -25,6 +25,17 @@ def get_tle_data(filename: str) -> List[TleData]:
     return result
 
 
+def get_data_by_name(name: str, all_tle: List[TleData]) -> Optional[TleData]:
+    for tle in all_tle:
+        if name == tle.name:
+            return tle
+    return None
+
+
 if __name__ == '__main__':
     all_data = get_tle_data('tle_catalog.txt')
     print(all_data)
+    zarya_tle = get_data_by_name('ISS (ZARYA)', all_data)
+    print(zarya_tle)
+    empty_tle = get_data_by_name('SOME_NAME', all_data)
+    print(empty_tle)
