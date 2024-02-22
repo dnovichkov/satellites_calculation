@@ -17,10 +17,11 @@ def print_locations_skyfield(tle: TleData, time_point):
 
 
 def print_locations_range_skyfield(tle: TleData, time_start, time_end, step_in_secs):
-    satellite = EarthSatellite(tle.tle_1, tle.tle_2, tle.name, load.timescale())
+    ts = load.timescale()
+    satellite = EarthSatellite(tle.tle_1, tle.tle_2, tle.name, ts)
     while time_start <= time_end:
         # TODO: Check this method - it can be slow
-        now = load.timescale().from_datetime(time_start)
+        now = ts.from_datetime(time_start)
         geocentric = satellite.at(now)
         # print(geocentric.position.km)
 

@@ -39,13 +39,13 @@ if __name__ == '__main__':
     # print(f'{pyorbital_delta=}, {skyfield_delta=}')
 
     start_pyorbital = datetime.now()
-    print_locations_range_pyorbital(zarya_tle, now, range_end, 60)
+    print_locations_range_pyorbital(zarya_tle, now, range_end, 1)
     end_pyorbital = datetime.now()
     pyorbital_range_delta = end_pyorbital - start_pyorbital
     print(f'{pyorbital_range_delta=}')
 
     start_skyfield = datetime.now()
-    print_locations_range_skyfield(zarya_tle, now, range_end, 10)
+    print_locations_range_skyfield(zarya_tle, now, range_end, 1)
     end_skyfield = datetime.now()
     skyfield_range_delta = end_skyfield - start_skyfield
     print(f'{skyfield_range_delta=}')
