@@ -57,12 +57,38 @@ def print_locations_range_pyorbital(tle: TleData, time_start, time_end, step_in_
     # Compare with: https://spacegid.com/media/iss_tracker/
 
 
+def print_observations_pyorbital(tle: TleData, time_start, time_end, latitude_degrees, longitude_degrees):
+    orb = Orbital(tle.name, line1=tle.tle_1, line2=tle.tle_2)
+    result = orb.get_next_passes(time_start, 24, longitude_degrees, latitude_degrees, 0)
+    for rec in result:
+        print(rec[0], 'Start')
+        print(rec[2], 'culminate')
+        print(rec[1], 'Finish')
+    # delta_time = timedelta(minutes=1)  # Шаг времени для проверки пролета (в данном случае - минута)
+    #
+    # # Находим временные интервалы пролета
+    # while time_start < time_end:
+    #     lon, lat, alt = orb.get_lonlatalt(time_start)
+    #
+    #     # Проверяем, находится ли космический аппарат над указанным районом
+    #     if abs(lat - latitude_degrees) < 10 and abs(lon - longitude_degrees) < 10:
+    #         print("Космический аппарат находится над указанным районом в", time_start)
+    #
+    #     time_start += delta_time
+
+
 if __name__ == '__main__':
     # simplest_satellite_position()
-    get_iss_projection()
+    # get_iss_projection()
     # all_data = get_tle_data('tle_catalog.txt')
     # zarya_tle = get_data_by_name('ISS (ZARYA)', all_data)
     tle_1 = '1 25544U 98067A   24051.57306753  .00017164  00000-0  30622-3 0  9993'
     tle_2 = '2 25544  51.6401 178.2264 0001870 289.0710 164.3741 15.50171695440310'
     zarya_tle = TleData('ISS (ZARYA)', tle_1, tle_2)
-    print_locations_pyorbital(zarya_tle, datetime.now(tz=timezone.utc))
+
+    start_time = datetime.now(tz=timezone.utc)
+    # print_locations_pyorbital(zarya_tle, start_time)
+
+    london_coords = (51.5074, 0.1278)
+    print_observations_pyorbital(zarya_tle, start_time, start_time + timedelta(days=1),
+                                 london_coords[0], london_coords[1])
