@@ -1,7 +1,7 @@
 from datetime import datetime, timezone, timedelta
 
-from pyorbital_main import print_locations_pyorbital, print_locations_range_pyorbital
-from skyfield_main import print_locations_skyfield, print_locations_range_skyfield
+from pyorbital_utils import print_locations_pyorbital, print_locations_range_pyorbital
+from skyfield_utils import print_locations_skyfield, print_locations_range_skyfield
 from tle_utils import TleData
 
 
