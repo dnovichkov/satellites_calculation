@@ -1,4 +1,4 @@
-from datetime import datetime, timezone
+from datetime import datetime, timezone, timedelta
 
 from pyorbital.orbital import Orbital
 
@@ -41,6 +41,19 @@ def print_locations_pyorbital(tle: TleData, time_point):
     print("current_position: ", orb.get_position(time_point))
     # Get longitude, latitude and altitude of the satellite:
     print("current_lot_lang_alt: ", orb.get_lonlatalt(time_point))
+    # Compare with: https://spacegid.com/media/iss_tracker/
+
+
+def print_locations_range_pyorbital(tle: TleData, time_start, time_end, step_in_secs):
+    orb = Orbital(tle.name, line1=tle.tle_1, line2=tle.tle_2)
+    while time_start <= time_end:
+        # Get normalized position and velocity of the satellite:
+        # print("current_position: ", orb.get_position(time_start))
+        # # Get longitude, latitude and altitude of the satellite:
+        # print("current_lot_lang_alt: ", orb.get_lonlatalt(time_start))
+        lon, lat, alt = orb.get_lonlatalt(time_start)
+        print(f'{time_start=}, {lat=}, {lon=}')
+        time_start += timedelta(seconds=step_in_secs)
     # Compare with: https://spacegid.com/media/iss_tracker/
 
 
