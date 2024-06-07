@@ -1,8 +1,8 @@
 from datetime import datetime, timezone, timedelta
-
+import typing
 from pyorbital.orbital import Orbital
 
-from tle_utils import TleData
+from tle_utils import TleData, EarthObject, Passage
 
 
 def simplest_satellite_position():
@@ -75,6 +75,13 @@ def print_observations_pyorbital(tle: TleData, time_start, time_end, latitude_de
     #         print("Космический аппарат находится над указанным районом в", time_start)
     #
     #     time_start += delta_time
+
+
+def get_passages(tle: TleData, earth_object: EarthObject,
+                 time_start: datetime.datetime, time_end: datetime.datetime) -> typing.List[Passage]:
+    result = []
+
+    return result
 
 
 if __name__ == '__main__':

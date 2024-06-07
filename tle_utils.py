@@ -1,12 +1,35 @@
 from dataclasses import dataclass
+from datetime import datetime
 from typing import List, Optional
 
 
 @dataclass
 class TleData:
     name: str
+    id: int
     tle_1: str
     tle_2: str
+
+
+@dataclass
+class EarthObject:
+    name: str
+    id: int
+    latitude: float
+    longitude: float
+    altitude: float
+    angle: float
+
+
+@dataclass
+class Passage:
+    space_object_id: int
+    earth_object_id: int
+    start: datetime
+    end: datetime
+    distance: float
+    angle: float
+    velocity: float
 
 
 def get_tle_data(filename: str) -> List[TleData]:

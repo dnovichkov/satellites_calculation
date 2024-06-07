@@ -18,9 +18,10 @@ def calculate_iss_skyfield(tle: TleData, time_point, count):
 if __name__ == '__main__':
     tle_1 = '1 25544U 98067A   24053.24726206  .00018436  00000-0  32753-3 0  9998'
     tle_2 = '2 25544  51.6401 169.9296 0002171 300.6974 142.1526 15.50235092440574'
-    zarya_tle = TleData('ISS (ZARYA)', tle_1, tle_2)
+    zarya_tle = TleData('ISS (ZARYA)', 123, tle_1, tle_2)
     now = datetime.now(tz=timezone.utc)
-    range_end = now + timedelta(seconds=3600)
+    # range_end = now + timedelta(seconds=3600)
+    range_end = now + timedelta(days=4)
     print("SKYFIELD:")
     print_locations_skyfield(zarya_tle, now)
 
@@ -39,13 +40,14 @@ if __name__ == '__main__':
     # print(f'{pyorbital_delta=}, {skyfield_delta=}')
 
     start_pyorbital = datetime.now()
-    print_locations_range_pyorbital(zarya_tle, now, range_end, 1)
+    step_in_secs = 1
+    print_locations_range_pyorbital(zarya_tle, now, range_end, step_in_secs)
     end_pyorbital = datetime.now()
     pyorbital_range_delta = end_pyorbital - start_pyorbital
     print(f'{pyorbital_range_delta=}')
 
     start_skyfield = datetime.now()
-    print_locations_range_skyfield(zarya_tle, now, range_end, 1)
+    print_locations_range_skyfield(zarya_tle, now, range_end, step_in_secs)
     end_skyfield = datetime.now()
     skyfield_range_delta = end_skyfield - start_skyfield
     print(f'{skyfield_range_delta=}')
